@@ -1,7 +1,12 @@
 import { Router } from "express";
 
-const router: Router = Router();
+import GenreRouter from "./genreRouter";
+import RecommendationRouter from "./recommendationRouter";
 
-router.use("/", () => console.log(""));
+const MainRouter = Router();
 
-export const MainRouter: Router = router;
+MainRouter.use("/", () => GenreRouter);
+
+MainRouter.use("/", () => RecommendationRouter);
+
+export default MainRouter;
