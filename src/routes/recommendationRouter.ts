@@ -1,8 +1,10 @@
 import { Router } from "express";
 
+import * as recommendationController from "../controllers/recommendationController";
+
 const RecommendationRouter = Router();
 
-RecommendationRouter.post("/recommendations", () => console.log(""));
+RecommendationRouter.post("/recommendations", recommendationController.post);
 
 RecommendationRouter.post("/recommendations/:id/upvote", () => console.log(""));
 

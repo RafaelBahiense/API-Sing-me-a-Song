@@ -12,7 +12,7 @@ const {
 
 const { Pool } = pg;
 
-export const connectionDB = new Pool(
+const connectionDB = new Pool(
   NODE_ENV === "development" || NODE_ENV === "test"
     ? {
         user: DB_USERNAME,
@@ -28,3 +28,5 @@ export const connectionDB = new Pool(
         },
       }
 );
+
+export default connectionDB;

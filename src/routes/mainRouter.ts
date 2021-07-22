@@ -5,8 +5,8 @@ import RecommendationRouter from "./recommendationRouter";
 
 const MainRouter = Router();
 
-MainRouter.use("/", () => GenreRouter);
+MainRouter.use("/", GenreRouter);
 
-MainRouter.use("/", () => RecommendationRouter);
+MainRouter.use("/", RecommendationRouter);
 
 export default MainRouter;

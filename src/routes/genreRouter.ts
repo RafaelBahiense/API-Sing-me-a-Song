@@ -1,11 +1,13 @@
 import { Router } from "express";
 
+import * as genreController from "../controllers/genreController";
+
 const GenreRouter = Router();
 
-GenreRouter.post("/genres", () => console.log(""));
+GenreRouter.post("/genres", genreController.post);
 
-GenreRouter.get("/genres", () => console.log(""));
+GenreRouter.get("/genres", genreController.get);
 
-GenreRouter.get("/genres/:id", () => console.log(""));
+GenreRouter.get("/genres/:id", genreController.getRecommendations);
 
 export default GenreRouter;
