@@ -19,12 +19,13 @@ export async function getAllById(id: number) {
 
     const recommendationsQuery = await recommendationRepository.getByGenreId(id);
     const score = recommendationsQuery.rows.reduce((total, recommendation) => total += recommendation.score, 0)
+    const recommendation = recommendationsQuery.rows;
     
     const recommendationsList = {
         ...genre,
         score,
-
+        recommendation
     }
 
-    return recommendationsQuery.rows;
+    return recommendationsList;
 }

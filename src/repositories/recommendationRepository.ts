@@ -35,8 +35,8 @@ export async function getByGenreId(
   return await connectionDB.query(
     `SELECT * FROM recommendations 
     JOIN genres_recommendations 
-    ON genres_recommendations.recommendationId = recommendations.id 
-    WHERE genres_recommendations.genreId`,
+    ON genres_recommendations."recommendationId" = recommendations.id 
+    WHERE genres_recommendations."genreId" = $1`,
     [id]
   );
 }
