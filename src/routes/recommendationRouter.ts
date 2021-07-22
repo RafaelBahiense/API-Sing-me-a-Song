@@ -14,4 +14,6 @@ RecommendationRouter.get("/recommendations/random", () => console.log(""));
 
 RecommendationRouter.get("/recommendations/top/:amount", () => console.log(""));
 
+RecommendationRouter.get("/recommendations/genres/:id/random", () => console.log(""));
+
 export default RecommendationRouter;
