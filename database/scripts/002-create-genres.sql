@@ -4,4 +4,4 @@ CREATE TABLE "genres" (
 	CONSTRAINT "genres_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
-);
+)

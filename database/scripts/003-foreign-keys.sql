@@ -1,1 +1,0 @@
-ALTER TABLE "recommendations" ADD CONSTRAINT "recommendations_fk0" FOREIGN KEY ("genreId") REFERENCES "genres"("id");
