@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "esModuleInterop": true
-  }
+    "outDir": "./dist",
+    "strict": true,
+    "importHelpers": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+  },
+  "include": ["src/*"]
 }

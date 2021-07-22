@@ -1,12 +1,14 @@
-import express from "express";
+import express, { Application } from "express";
 import cors from "cors";
 
-const app = express();
+import { MainRouter } from "./routes/mainRouter";
+import errorHandler from "./utilities/errorHandler";
+
+const app: Application = express();
+
 app.use(cors());
 app.use(express.json());
-
-app.get("/test", (req, res) => {
-  res.send("OK!");
-});
+app.use("/", MainRouter);
+app.use(errorHandler);
 
 export default app;

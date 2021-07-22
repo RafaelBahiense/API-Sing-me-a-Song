@@ -1,17 +1,16 @@
 {
-  "name": "typescript-back-template",
+  "name": "api-sing-me-a-song",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "npx jest -i",
-    "build": "npx tsc --outDir dist",
-    "start": "node dist/server.js",
-    "postinstall": "npm run build",
-    "dev": "npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
+    "start": "NODE_ENV=production node dist/server.js",
+    "build": "npx tsc",
+    "dev": "NODE_ENV=development npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\"",
+    "test": "NODE_ENV=test npx jest --rootDir=tests -i"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rafael Bahiense Brasão",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -29,7 +28,16 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "pg": "^8.6.0"
+    "joi": "^17.4.1",
+    "pg": "^8.6.0",
+    "tslib": "^2.3.0",
+    "winston": "^3.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RafaelBahiense/API-Sing-me-a-Song.git",
+    "template": "https://github.com/bootcamp-ra/typescript-back-template.git"
   }
 }

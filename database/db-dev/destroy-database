@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source ../src/functions;
+
+DATABASE=$(cat database);
+
+echo "Checking postgres status..." &&
+checkPostgres &&
+
+echo "Deleting database..." &&
+destroyDatabase $DATABASE;
