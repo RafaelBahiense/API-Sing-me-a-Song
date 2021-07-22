@@ -25,3 +25,13 @@ export async function post(
   );
   return true;
 }
+
+export async function vote(
+  id: number,
+  vote: number
+) {
+  const existent = await recommendationRepository.getById(id);
+  if (!existent.rowCount) return false;
+
+  return await recommendationRepository.updateScore(id, vote);
+}

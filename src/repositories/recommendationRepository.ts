@@ -8,7 +8,10 @@ type Recommendation = {
   score: number;
 };
 
-export async function post(name: string, youtubeLink: string): Promise<Recommendation> {
+export async function post(
+  name: string,
+  youtubeLink: string
+): Promise<Recommendation> {
   const queryResult = await connectionDB.query(
     `INSERT INTO recommendations (name, "youtubeLink") 
     VALUES ($1, $2)
@@ -17,6 +20,16 @@ export async function post(name: string, youtubeLink: string): Promise<Recommend
   );
 
   return queryResult.rows[0];
+}
+
+export async function getById(
+  id: number
+): Promise<QueryResult<Recommendation>> {
+  return await connectionDB.query(
+    `SELECT * FROM recommendations 
+    WHERE id = $1`,
+    [id]
+  );
 }
 
 export async function getByLink(
@@ -33,10 +46,39 @@ export async function getByGenreId(
   id: number
 ): Promise<QueryResult<Recommendation>> {
   return await connectionDB.query(
-    `SELECT * FROM recommendations 
+    `SELECT recommendations.* FROM recommendations 
     JOIN genres_recommendations 
     ON genres_recommendations."recommendationId" = recommendations.id 
     WHERE genres_recommendations."genreId" = $1`,
     [id]
   );
+}
+
+export async function updateScore(
+  id: number,
+  vote: number
+): Promise<Recommendation> {
+  const queryResult = await connectionDB.query(
+    `UPDATE recommendations
+    SET score = score + $1
+    WHERE id = $2
+    RETURNING *`,
+    [vote, id]
+  );
+  const recommendation: Recommendation = queryResult.rows[0];
+
+  if (recommendation.score < -5) {
+    await connectionDB.query(
+      `DELETE FROM genres_recommendations
+      WHERE "recommendationId" = $1`,
+      [id]
+    );
+    await connectionDB.query(
+      `DELETE FROM recommendations
+      WHERE id = $1`,
+      [id]
+    );
+  }
+
+  return recommendation;
 }
