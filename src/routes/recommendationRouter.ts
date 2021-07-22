@@ -14,7 +14,7 @@ RecommendationRouter.post("/recommendations/:id/downvote", (req, res, next) =>
   recommendationController.vote(req, res, next, -1)
 );
 
-RecommendationRouter.get("/recommendations/random", () => console.log(""));
+RecommendationRouter.get("/recommendations/random", recommendationController.getRecommendationsRandom);
 
 RecommendationRouter.get("/recommendations/top/:amount", () => console.log(""));
 

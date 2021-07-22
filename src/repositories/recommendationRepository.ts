@@ -82,3 +82,24 @@ export async function updateScore(
 
   return recommendation;
 }
+
+export async function scoreGreaterThan(
+  score: number
+): Promise<QueryResult<Recommendation>> {
+  return await connectionDB.query(
+    `SELECT * FROM recommendations 
+    WHERE score < $1`,
+    [score]
+  );
+}
+
+export async function scoreBetween(
+  min: number,
+  max: number
+): Promise<QueryResult<Recommendation>> {
+  return await connectionDB.query(
+    `SELECT * FROM recommendations 
+    WHERE score >= $1 AND score <= $2`,
+    [min, max]
+  );
+}

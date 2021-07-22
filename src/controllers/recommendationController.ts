@@ -36,3 +36,19 @@ export async function vote(req: Request, res: Response, next: NextFunction, vote
     next(e);
   }
 }
+
+export async function getRecommendationsRandom(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+  
+      const recommendationsList = await recommendationService.getRecommendationsRandom();
+      if (!recommendationsList) res.sendStatus(404);
+      else res.status(200).send(recommendationsList);
+  
+    } catch (e) {
+      next(e);
+    }
+  }
