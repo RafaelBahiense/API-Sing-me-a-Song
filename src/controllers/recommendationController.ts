@@ -10,6 +10,7 @@ export async function post(req: Request, res: Response, next: NextFunction) {
 
     const sucess = await recommendationService.post(name, youtubeLink, genresIds);
     if (sucess) res.sendStatus(201);
+    else if (sucess == null) res.sendStatus(404);
     else res.sendStatus(409);
   } catch (e) {
     next(e);

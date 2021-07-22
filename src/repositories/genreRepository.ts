@@ -7,8 +7,9 @@ type Genre = {
   name: string;
 };
 
-export async function getById(id: number): Promise<QueryResult<Genre>> {
-  return await connectionDB.query(`SELECT * FROM genres WHERE id = $1`, [id]);
+export async function getById(id: number): Promise<Genre> {
+  const queryResult = await connectionDB.query(`SELECT * FROM genres WHERE id = $1`, [id]);
+  return queryResult.rows[0];
 }
 
 export async function getAll(): Promise<QueryResult<Genre>> {

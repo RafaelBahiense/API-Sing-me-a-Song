@@ -14,9 +14,8 @@ export async function getAll() {
 }
 
 export async function getAllById(id: number) {
-    const genreQuery = await genreRepository.getById(id);
-    if(genreQuery.rowCount) return false;
-    const genre = genreQuery.rows[0];
+    const genre = await genreRepository.getById(id);
+    if(!genre) return false;
 
     const recommendationsQuery = await recommendationRepository.getByGenreId(id);
     const score = recommendationsQuery.rows.reduce((total, recommendation) => total += recommendation.score, 0)
