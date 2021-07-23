@@ -1,5 +1,4 @@
 import supertest from "supertest";
-import faker from "faker";
 
 import "../../src/config/env";
 import app from "../../src/app";
