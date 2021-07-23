@@ -2,19 +2,8 @@ import * as recommendationRepository from "../repositories/recommendationReposit
 import * as genreRepository from "../repositories/genreRepository";
 import * as genreRecommendationRepository from "../repositories/genreRecommendationRepository";
 import { RecommendationSchema } from "../schemas/schemas";
+import { RecommendationResponse, Recommendation } from "../types/types";
 
-type Recommendation = {
-  id: number;
-  name: string;
-  youtubeLink: string;
-  score: number;
-  genres?: Genre[];
-};
-
-type Genre = {
-  id: number;
-  name: string;
-};
 
 export async function post(
   name: string,
@@ -62,7 +51,7 @@ export async function getRecommendationsRandom() {
     const queryResult = await recommendationRepository.scoreBetween(-5, 10);
     recommendationList = queryResult.rows;
   }
-  await Promise.all((recommendationList as Recommendation[]).map(
+  await Promise.all((recommendationList as RecommendationResponse[]).map(
     async (recommendation) =>
       (recommendation.genres = await genreRepository.getFromRecommendations(
         recommendation.id
@@ -70,16 +59,16 @@ export async function getRecommendationsRandom() {
   ));
 
   random = Math.floor(
-    Math.random() * (recommendationList as Recommendation[]).length
+    Math.random() * (recommendationList as RecommendationResponse[]).length
   );
-  if ((recommendationList as Recommendation[]).length < 1) return false;
-  return (recommendationList as Recommendation[])[random];
+  if ((recommendationList as RecommendationResponse[]).length < 1) return false;
+  return (recommendationList as RecommendationResponse[])[random];
 }
 
 export async function getRecommendationsAmount(amount: number) {
   const queryResult = await recommendationRepository.byRange(amount);
   const recommendationList = queryResult.rows;
-  await Promise.all((recommendationList as Recommendation[]).map(
+  await Promise.all((recommendationList as RecommendationResponse[]).map(
     async (recommendation) =>
       (recommendation.genres = await genreRepository.getFromRecommendations(
         recommendation.id

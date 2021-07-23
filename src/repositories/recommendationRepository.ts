@@ -1,13 +1,7 @@
 import { QueryResult } from "pg";
 
-import connectionDB from "../config/database";
-
-type Recommendation = {
-  id: number;
-  name: string
-  youtubeLink: string;
-  score: number;
-};
+import connectionDB from "../config/database"
+import { Recommendation } from "../types/types";
 
 export async function post(
   name: string,

@@ -1,5 +1,3 @@
-import { QueryResult } from "pg";
-
 import connectionDB from "../config/database";
 
 export async function post(recommendationId: number, genreId: number): Promise<void> {

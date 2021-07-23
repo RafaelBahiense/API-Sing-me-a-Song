@@ -1,11 +1,8 @@
 import { QueryResult } from "pg";
 
 import connectionDB from "../config/database";
+import { Genre } from "../types/types";
 
-type Genre = {
-  id: number;
-  name: string;
-};
 
 export async function getById(id: number): Promise<Genre> {
   const queryResult = await connectionDB.query(`SELECT * FROM genres WHERE id = $1`, [id]);
