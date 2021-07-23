@@ -1,6 +1,7 @@
 import * as recommendationRepository from "../repositories/recommendationRepository";
 import * as genreRepository from "../repositories/genreRepository";
 import * as genreRecommendationRepository from "../repositories/genreRecommendationRepository";
+import { RecommendationSchema } from "../schemas/schemas";
 
 type Recommendation = {
   id: number;
@@ -20,6 +21,8 @@ export async function post(
   youtubeLink: string,
   genresIds: number[]
 ) {
+  await RecommendationSchema.validateAsync({name, youtubeLink, genresIds});
+
   const genresQuery = await Promise.all(
     genresIds.map(async (genreId) => await genreRepository.getById(genreId))
   );

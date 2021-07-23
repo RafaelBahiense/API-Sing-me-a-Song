@@ -1,7 +1,10 @@
 import * as genreRepository from "../repositories/genreRepository";
 import * as recommendationRepository from "../repositories/recommendationRepository";
+import { GenreSchema } from "../schemas/schemas";
 
 export async function post(name: string) {
+    await GenreSchema.validateAsync(name);
+
     const existent = await genreRepository.getByName(name);
     if(existent.rowCount) return false;
 
@@ -18,7 +21,6 @@ export async function getAllById(id: number) {
     if(!genre) return false;
 
     const recommendationsQuery = await recommendationRepository.getByGenreId(id);
-    //console.log(recommendationsQuery)
     const score = recommendationsQuery.rows.reduce((total, recommendation) => total += recommendation.score, 0)
     const recommendation = recommendationsQuery.rows;
     
