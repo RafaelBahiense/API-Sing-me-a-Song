@@ -31,3 +31,14 @@ export async function post(name: string): Promise<void> {
     [name]
   );
 }
+
+export async function getFromRecommendations(id: number): Promise<Genre[]> {
+  const queryResult = await connectionDB.query(
+    `SELECT genres.* FROM genres
+    JOIN genres_recommendations
+    ON genres_recommendations."genreId" = genres.id
+    WHERE genres_recommendations."recommendationId" = $1`,
+    [id]
+  );
+  return queryResult.rows;
+}

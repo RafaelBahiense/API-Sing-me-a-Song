@@ -4,6 +4,7 @@ import connectionDB from "../config/database";
 
 type Recommendation = {
   id: number;
+  name: string
   youtubeLink: string;
   score: number;
 };
@@ -101,5 +102,16 @@ export async function scoreBetween(
     `SELECT * FROM recommendations 
     WHERE score >= $1 AND score <= $2`,
     [min, max]
+  );
+}
+
+export async function byRange(
+  amount: number
+): Promise<QueryResult<Recommendation>> {
+  return await connectionDB.query(
+    `SELECT * FROM recommendations 
+    ORDER BY score DESC
+    LIMIT $1`,
+    [amount]
   );
 }
