@@ -1,5 +1,0 @@
-dist
-node_modules
-local.dev.env
-local.test.env
-logs
